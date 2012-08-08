@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 import sys
+import re
+import unicodedata
 
 import twitter_auth as ta
 
@@ -9,15 +11,18 @@ def tweetq(q):
 
     #TODO handle a long string with only non-whitespace characters
     tweet = u''
-    for word in q.split():
+    for word in q.split('\ '):
         tmp = tweet
-        tmp += u' ' + word
+        tmp = u' '.join((tmp, word))
+        # tmp += u' ' + word
         if len(tmp) > 136:
             tweet += ' [' + str(len(tweets)) + ']'
+            tweet = unicodedata.normalize('NFC', tweet)
             tweets.append(tweet)
             tweet = u''
         else:
             tweet = tmp
+    tweet = unicodedata.normalize('NFC', tweet)
     tweets.append(tweet)
 
     for t in tweets:
