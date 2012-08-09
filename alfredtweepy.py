@@ -19,9 +19,12 @@ def tweetq(q):
             tweet += ' [' + str(len(tweets)) + ']'
             tweet = unicodedata.normalize('NFC', tweet)
             tweets.append(tweet)
-            tweet = u''
+            tweet = word
         else:
             tweet = tmp
+    if len(tweets) > 0:
+        tweet += ' [' + str(len(tweets)) + ']'
+
     tweet = unicodedata.normalize('NFC', tweet)
     tweets.append(tweet)
 
