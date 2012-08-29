@@ -7,11 +7,12 @@ import twitter_auth as ta
 
 def tweetq(q):
     q = q.decode('utf-8')
+    q = unicodedata.normalize('NFC', q)
     tweets = []
 
     #TODO handle a long string with only non-whitespace characters
     tweet = u''
-    for word in q.split('\ '):
+    for word in q.split(' '):
         tmp = tweet
         tmp = u' '.join((tmp, word))
         # tmp += u' ' + word
